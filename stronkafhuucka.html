@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FHU UCKA Grzegorz – Usługi Minikoparką | Województwo Opolskie</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #f5c300;
+    --yellow-dark: #d4a900;
+    --black: #0d0d0d;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #2c2c2c;
+    --gray-light: #444;
+    --white: #f0ede8;
+    --red: #cc2200;
+    --concrete: #3a3a3a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 3px solid var(--yellow);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: var(--yellow);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--white); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+
+  .nav-phone {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: var(--yellow);
+    text-decoration: none;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 68px;
+    background: var(--black);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(245,195,0,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(245,195,0,0.06) 0%, transparent 70%),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(245,195,0,0.015) 40px,
+        rgba(245,195,0,0.015) 41px
+      );
+  }
+
+  /* diagonal stripe accent */
+  .hero-stripe {
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 600px;
+    height: 600px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--yellow) 0px,
+      var(--yellow) 30px,
+      var(--black) 30px,
+      var(--black) 60px
+    );
+    opacity: 0.18;
+    border-radius: 40px;
+    rotate: 15deg;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    border: 2px solid var(--yellow);
+    padding: 4px 14px;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .hero-title .accent { color: var(--yellow); }
+
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.5rem, 4vw, 2.8rem);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #aaa;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: background .2s, transform .2s;
+  }
+  .btn-primary:hover { background: var(--yellow-dark); transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    border: 2px solid var(--gray-light);
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .excavator-icon {
+    font-size: 18rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 60px rgba(245,195,0,0.3));
+    animation: float 4s ease-in-out infinite;
+    user-select: none;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    background: var(--yellow);
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+    color: var(--black);
+  }
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .section-title .accent { color: var(--yellow); }
+  .section-divider {
+    width: 60px;
+    height: 4px;
+    background: var(--yellow);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ─── SERVICES ─── */
+  #uslugi { background: var(--gray-dark); }
+  #uslugi > * { max-width: 1200px; }
+
+  .services-section {
+    background: var(--gray-dark);
+    padding: 5rem 2rem;
+  }
+  .services-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: var(--gray-light);
+    border: 1.5px solid var(--gray-light);
+  }
+
+  .service-card {
+    background: var(--gray-mid);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background .3s;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 0;
+    background: var(--yellow);
+    transition: height .3s;
+  }
+  .service-card:hover { background: #333; }
+  .service-card:hover::before { height: 100%; }
+
+  .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+  }
+  .service-desc {
+    font-size: 0.95rem;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* ─── O NAS ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-big-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 8rem;
+    letter-spacing: 5px;
+    color: rgba(245,195,0,0.06);
+    line-height: 1;
+    user-select: none;
+    position: absolute;
+    top: -20px; left: -20px;
+  }
+  .about-card {
+    background: var(--gray-mid);
+    border-left: 4px solid var(--yellow);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .about-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #bbb;
+    margin-bottom: 1.2rem;
+  }
+  .about-card p:last-child { margin-bottom: 0; }
+  .highlight {
+    color: var(--yellow);
+    font-weight: 600;
+  }
+
+  .about-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .feature-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--yellow);
+    color: var(--black);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  }
+  .feature-text h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .feature-text p {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  /* ─── AREA ─── */
+  .area-section {
+    background: var(--gray-dark);
+    padding: 5rem 2rem;
+  }
+  .area-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .area-map-placeholder {
+    background: var(--gray-mid);
+    border: 2px solid var(--gray-light);
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .map-svg {
+    width: 100%;
+    height: 100%;
+  }
+  .cities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  .city-tag {
+    background: var(--gray-mid);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border: 1px solid var(--gray-light);
+    transition: background .2s, border-color .2s;
+  }
+  .city-tag:hover { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
+  .area-note {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #888;
+    line-height: 1.7;
+  }
+
+  /* ─── OPINIE ─── */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .review-card {
+    background: var(--gray-mid);
+    padding: 2rem;
+    position: relative;
+    border-bottom: 3px solid transparent;
+    transition: border-color .3s;
+  }
+  .review-card:hover { border-color: var(--yellow); }
+  .review-card::before {
+    content: '"';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    color: rgba(245,195,0,0.12);
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    line-height: 1;
+  }
+  .stars {
+    color: var(--yellow);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+  }
+  .review-text {
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: #bbb;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .author-avatar {
+    width: 42px;
+    height: 42px;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .author-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  .author-loc {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    background: var(--gray-dark);
+    padding: 5rem 2rem;
+  }
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .contact-ico {
+    width: 52px;
+    height: 52px;
+    background: var(--yellow);
+    color: var(--black);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  }
+  .contact-detail h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  .contact-detail a, .contact-detail p {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .contact-detail a:hover { color: var(--yellow); }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .contact-form h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .form-group label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .form-group input,
+  .form-group textarea {
+    background: var(--gray-mid);
+    border: 1.5px solid var(--gray-light);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color .2s;
+    resize: vertical;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--yellow);
+  }
+  .form-group textarea { min-height: 120px; }
+  .form-submit {
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    transition: background .2s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--yellow-dark); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 3px solid var(--yellow);
+    padding: 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+  }
+  .footer-sub {
+    font-size: 0.85rem;
+    color: #555;
+    letter-spacing: 1px;
+  }
+
+  /* ─── FLOATING PHONE ─── */
+  .floating-phone {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 200;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    padding: 14px 22px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    box-shadow: 0 8px 30px rgba(245,195,0,0.4);
+    animation: pulse-btn 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 8px 30px rgba(245,195,0,0.4); }
+    50% { box-shadow: 0 8px 50px rgba(245,195,0,0.7); }
+  }
+  .floating-phone:hover { background: var(--yellow-dark); }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-content,
+    .about-grid,
+    .area-inner,
+    .contact-inner {
+      grid-template-columns: 1fr;
+    }
+    .excavator-icon { font-size: 10rem; }
+    .nav-links { display: none; }
+    .nav-phone { font-size: 1.1rem; }
+    .about-big-text { font-size: 4rem; }
+    .stats-bar { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">FHU UCKA <span>Grzegorz</span></a>
+  <ul class="nav-links">
+    <li><a href="#uslugi">Usługi</a></li>
+    <li><a href="#o-nas">O nas</a></li>
+    <li><a href="#obszar">Obszar działania</a></li>
+    <li><a href="#opinie">Opinie</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="tel:787161614" class="nav-phone">📞 787 16 16 14</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding:0; max-width:100%;">
+  <div class="hero-bg"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <span class="hero-tag">Województwo Opolskie</span>
+      <h1 class="hero-title">
+        Usługi<br>
+        <span class="accent">Minikoparką</span>
+      </h1>
+      <p class="hero-subtitle">FHU UCKA Grzegorz</p>
+      <p class="hero-desc">
+        Profesjonalne usługi minikoparką na terenie całego województwa opolskiego.
+        Szybko, solidnie i w przystępnej cenie. Zadzwoń – wyceniamy bezpłatnie!
+      </p>
+      <div class="hero-cta">
+        <a href="tel:787161614" class="btn-primary">📞 Zadzwoń teraz</a>
+        <a href="#uslugi" class="btn-outline">Zobacz usługi</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="excavator-icon">🚜</div>
+      <div class="hero-badge">Bezpłatna wycena</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-number">10+</div>
+    <div class="stat-label">Lat doświadczenia</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">500+</div>
+    <div class="stat-label">Zrealizowanych zleceń</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">100%</div>
+    <div class="stat-label">Zadowolonych klientów</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">24h</div>
+    <div class="stat-label">Czas reakcji</div>
+  </div>
+</div>
+
+<!-- USŁUGI -->
+<div class="services-section" id="uslugi">
+  <div class="services-inner">
+    <p class="section-label">Co oferujemy</p>
+    <h2 class="section-title">Nasze <span class="accent">usługi</span></h2>
+    <div class="section-divider"></div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <span class="service-icon">🏗️</span>
+        <div class="service-name">Fundamenty</div>
+        <div class="service-desc">Wykopy pod fundamenty budynków mieszkalnych i użytkowych. Precyzyjne wykonanie zgodnie z projektem budowlanym.</div>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">🔌</span>
+        <div class="service-name">Przyłącza</div>
+        <div class="service-desc">Wykopy pod przyłącza wody, gazu, kanalizacji i energii elektrycznej. Szybko i bez zbędnych zniszczeń terenu.</div>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">💧</span>
+        <div class="service-name">Drenaże</div>
+        <div class="service-desc">Profesjonalne drenaże opaskowe i liniowe. Skuteczne odprowadzanie wód gruntowych i opadowych.</div>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">🪣</span>
+        <div class="service-name">Szamba</div>
+        <div class="service-desc">Wykopy pod szamba i zbiorniki bezodpływowe oraz oczyszczalnie przydomowe. Dokładne i sprawne wykonanie.</div>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">🛤️</span>
+        <div class="service-name">Korytowanie</div>
+        <div class="service-desc">Korytowanie pod podjazdy, chodniki, tarasy i drogi wewnętrzne. Przygotowanie podłoża pod różne nawierzchnie.</div>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">⛰️</span>
+        <div class="service-name">Skarpowanie</div>
+        <div class="service-desc">Kształtowanie skarp i zboczy terenu. Zabezpieczanie nasypów i wykopów przed osuwaniem.</div>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">🧹</span>
+        <div class="service-name">Porządkowanie terenu</div>
+        <div class="service-desc">Kompleksowe porządkowanie działek budowlanych i rekreacyjnych. Usuwanie gruzu, ziemi i innych materiałów.</div>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-icon">📐</span>
+        <div class="service-name">Niwelacja terenu</div>
+        <div class="service-desc">Wyrównywanie i niwelacja terenu pod ogrody, trawniki, place i obiekty budowlane. Precyzyjne poziomowanie.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- O NAS -->
+<section id="o-nas">
+  <div class="about-grid">
+    <div class="about-visual fade-in">
+      <div class="about-big-text">FHU</div>
+      <div class="about-card">
+        <p>
+          <span class="highlight">FHU UCKA Grzegorz</span> to firma z wieloletnim doświadczeniem w branży usług ziemnych. Działamy na terenie <span class="highlight">województwa opolskiego</span>, oferując kompleksowe usługi minikoparką dla klientów indywidualnych i firm budowlanych.
+        </p>
+        <p>
+          Dysponujemy nowoczesnym sprzętem – minikoparką Cat 8014, która umożliwia prowadzenie prac nawet w trudno dostępnych miejscach: wąskich posesjach, ogrodach, parkingach podziemnych czy budynkach przemysłowych.
+        </p>
+        <p>
+          Gwarantujemy <span class="highlight">terminowość, rzetelność i konkurencyjne ceny</span>. Każde zlecenie wyceniamy bezpłatnie i indywidualnie. Zadzwoń – doradzimy i dobierzemy najlepsze rozwiązanie!
+        </p>
+      </div>
+    </div>
+    <div class="about-features fade-in">
+      <div class="feature-row">
+        <div class="feature-icon">✅</div>
+        <div class="feature-text">
+          <h4>Doświadczenie i fachowość</h4>
+          <p>Ponad 10 lat w branży ziemnej. Setki zrealizowanych zleceń na terenie województwa opolskiego.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-text">
+          <h4>Szybka realizacja</h4>
+          <p>Reagujemy w ciągu 24 godzin. Terminy dostosowujemy do potrzeb klienta, pracujemy również w weekendy.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">💰</div>
+        <div class="feature-text">
+          <h4>Przystępne ceny</h4>
+          <p>Bezpłatna wycena, uczciwe stawki, brak ukrytych kosztów. Wystawiamy faktury VAT.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">🔧</div>
+        <div class="feature-text">
+          <h4>Nowoczesny sprzęt</h4>
+          <p>Sprawna i zadbana minikoparką Cat – idealnie sprawdza się nawet w ciasnych i trudno dostępnych miejscach.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">📍</div>
+        <div class="feature-text">
+          <h4>Cały teren opolszczyzny</h4>
+          <p>Dojeżdżamy do wszystkich gmin i miejscowości w województwie opolskim.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBSZAR DZIAŁANIA -->
+<div class="area-section" id="obszar">
+  <div class="area-inner">
+    <div class="fade-in">
+      <p class="section-label">Gdzie działamy</p>
+      <h2 class="section-title">Obszar <span class="accent">działania</span></h2>
+      <div class="section-divider"></div>
+      <p style="color:#888; margin-bottom:1.5rem; line-height:1.7;">
+        Obsługujemy cały obszar <strong style="color:var(--white)">województwa opolskiego</strong>. Dojeżdżamy do wszystkich miast, miasteczek i wsi na opolszczyźnie.
+      </p>
+      <div class="cities-list">
+        <span class="city-tag">Opole</span>
+        <span class="city-tag">Nysa</span>
+        <span class="city-tag">Brzeg</span>
+        <span class="city-tag">Kluczbork</span>
+        <span class="city-tag">Kędzierzyn-Koźle</span>
+        <span class="city-tag">Strzelce Opolskie</span>
+        <span class="city-tag">Prudnik</span>
+        <span class="city-tag">Namysłów</span>
+        <span class="city-tag">Głubczyce</span>
+        <span class="city-tag">Krapkowice</span>
+        <span class="city-tag">Olesno</span>
+        <span class="city-tag">Ozimek</span>
+        <span class="city-tag">Prószków</span>
+        <span class="city-tag">Lewin Brzeski</span>
+        <span class="city-tag">Gogolin</span>
+        <span class="city-tag">Zdzieszowice</span>
+        <span class="city-tag">Zawadzkie</span>
+        <span class="city-tag">Dobrodzień</span>
+      </div>
+      <p class="area-note">
+        ✅ Nie ma Cię na liście? Zadzwoń – na pewno dogadamy się w sprawie dojazdu! Zazwyczaj koszt dojazdu wliczony jest w cenę usługi.
+      </p>
+    </div>
+    <div class="area-map-placeholder fade-in">
+      <svg class="map-svg" viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="360" fill="#1e1e1e"/>
+        <!-- Stylized Opolskie region shape -->
+        <polygon points="80,60 180,40 280,50 340,100 360,180 320,260 240,300 160,310 80,280 40,200 30,130" 
+          fill="none" stroke="#444" stroke-width="2"/>
+        <polygon points="80,60 180,40 280,50 340,100 360,180 320,260 240,300 160,310 80,280 40,200 30,130" 
+          fill="rgba(245,195,0,0.07)"/>
+        <!-- Grid lines -->
+        <line x1="0" y1="120" x2="400" y2="120" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="0" y1="180" x2="400" y2="180" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="0" y1="240" x2="400" y2="240" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="100" y1="0" x2="100" y2="360" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="200" y1="0" x2="200" y2="360" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="300" y1="0" x2="300" y2="360" stroke="#2a2a2a" stroke-width="1"/>
+        <!-- City dots -->
+        <circle cx="190" cy="165" r="8" fill="#f5c300" opacity="0.9"/>
+        <text x="204" y="170" fill="#f5c300" font-size="12" font-family="Bebas Neue">Opole</text>
+        <circle cx="140" cy="250" r="5" fill="#aaa"/>
+        <text x="150" y="254" fill="#888" font-size="10" font-family="Barlow">Nysa</text>
+        <circle cx="240" cy="130" r="5" fill="#aaa"/>
+        <text x="250" y="134" fill="#888" font-size="10" font-family="Barlow">Kluczbork</text>
+        <circle cx="310" cy="210" r="5" fill="#aaa"/>
+        <text x="318" y="214" fill="#888" font-size="10" font-family="Barlow">K-Koźle</text>
+        <circle cx="100" cy="200" r="5" fill="#aaa"/>
+        <text x="110" y="204" fill="#888" font-size="10" font-family="Barlow">Brzeg</text>
+        <circle cx="175" cy="70" r="5" fill="#aaa"/>
+        <text x="185" y="74" fill="#888" font-size="10" font-family="Barlow">Namysłów</text>
+        <!-- Coverage radius -->
+        <circle cx="190" cy="165" r="130" fill="none" stroke="rgba(245,195,0,0.15)" stroke-width="2" stroke-dasharray="8,6"/>
+        <!-- Label -->
+        <text x="200" y="340" fill="#555" font-size="11" font-family="Barlow" text-anchor="middle">Województwo Opolskie</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- OPINIE -->
+<section id="opinie">
+  <p class="section-label">Co mówią klienci</p>
+  <h2 class="section-title">Opinie <span class="accent">klientów</span></h2>
+  <div class="section-divider"></div>
+  <div class="reviews-grid">
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Polecam z całego serca! Pan Grzegorz wykopał nam fundamenty pod garaż w jeden dzień. Praca wykonana niezwykle starannie, bez żadnych problemów. Cena uczciwa, terminy dotrzymane. Będziemy korzystać ponownie przy rozbudowie domu.</p>
+      <div class="review-author">
+        <div class="author-avatar">MK</div>
+        <div>
+          <div class="author-name">Marek Kowalczyk</div>
+          <div class="author-loc">Opole</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Bardzo profesjonalna obsługa. Zadzwoniłam rano, a już po południu trwały prace przy przyłączu wody. Minikoparką zmieściła się bez problemu przez furtkę do ogrodu – co by nas zaoszczędziło wiele nerwów. Zdecydowanie polecam!</p>
+      <div class="review-author">
+        <div class="author-avatar">AN</div>
+        <div>
+          <div class="author-name">Anna Nowak</div>
+          <div class="author-loc">Nysa</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Skarpowanie działki pod nową zabudowę – robota odwalona w pół dnia. Pan Grzegorz zna się na robocie, widać że to doświadczony fachowiec. Teren wyglądał lepiej niż się spodziewałem. Cena bardzo przystępna jak na jakość usługi.</p>
+      <div class="review-author">
+        <div class="author-avatar">PT</div>
+        <div>
+          <div class="author-name">Piotr Tomczyk</div>
+          <div class="author-loc">Strzelce Opolskie</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Drenażu szukałem długo kogoś sprawdzonego. Kolega polecił FHU UCKA i nie zawiodłem się. Fachowo, szybko, czysto po sobie posprzątał. Teraz nie ma już problemu z wodą w piwnicy. Serdecznie polecam każdemu!</p>
+      <div class="review-author">
+        <div class="author-avatar">JW</div>
+        <div>
+          <div class="author-name">Jacek Wiśniewski</div>
+          <div class="author-loc">Krapkowice</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Korytowanie pod podjazd – wykonane perfekcyjnie. Pan Grzegorz doradził też co do głębokości warstw, żeby podjazd przetrwał lata. Widać że zna się na budowlance szerzej, nie tylko na obsłudze koparki. Bardzo polecam!</p>
+      <div class="review-author">
+        <div class="author-avatar">KS</div>
+        <div>
+          <div class="author-name">Krzysztof Sikora</div>
+          <div class="author-loc">Brzeg</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card fade-in">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Niwelacja terenu po budowie domu – dżungla zamieniła się w równy trawnik gotowy do siewu. Pan Grzegorz pracował sprawnie i bez narzekania nawet gdy trafił na kamienne podłoże. Cena za jaką wyszło to naprawdę świetny stosunek jakości do ceny!</p>
+      <div class="review-author">
+        <div class="author-avatar">EL</div>
+        <div>
+          <div class="author-name">Ewa Lewandowska</div>
+          <div class="author-loc">Kluczbork</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<div class="contact-section" id="kontakt">
+  <div class="contact-inner">
+    <div class="fade-in">
+      <p class="section-label">Skontaktuj się</p>
+      <h2 class="section-title">Zadzwoń lub <span class="accent">napisz</span></h2>
+      <div class="section-divider"></div>
+      <div class="contact-info-block">
+        <div class="contact-row">
+          <div class="contact-ico">📞</div>
+          <div class="contact-detail">
+            <h4>Telefon</h4>
+            <a href="tel:787161614">787 16 16 14</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-ico">🏢</div>
+          <div class="contact-detail">
+            <h4>Firma</h4>
+            <p>FHU UCKA Grzegorz</p>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-ico">📍</div>
+          <div class="contact-detail">
+            <h4>Obszar działania</h4>
+            <p>Województwo Opolskie</p>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-ico">🕐</div>
+          <div class="contact-detail">
+            <h4>Godziny kontaktu</h4>
+            <p>Pon – Sob: 7:00 – 20:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <h3>Bezpłatna <span style="color:var(--yellow)">wycena</span></h3>
+      <p style="color:#888; margin-bottom:1rem; font-size:0.95rem;">Opisz swoje zlecenie, a oddzwonimy z wyceną w ciągu kilku godzin!</p>
+      <div class="form-group">
+        <label>Imię i nazwisko</label>
+        <input type="text" placeholder="Jan Kowalski">
+      </div>
+      <div class="form-group">
+        <label>Telefon</label>
+        <input type="tel" placeholder="500 000 000">
+      </div>
+      <div class="form-group">
+        <label>Miejscowość</label>
+        <input type="text" placeholder="np. Opole, Nysa...">
+      </div>
+      <div class="form-group">
+        <label>Opis zlecenia</label>
+        <textarea placeholder="Opisz czego potrzebujesz – rodzaj pracy, przybliżona powierzchnia, termin..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleForm(this)">Wyślij zapytanie →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FHU UCKA Grzegorz</div>
+  <p class="footer-sub">Usługi minikoparką • Województwo opolskie • Tel: 787 16 16 14</p>
+  <p class="footer-sub" style="margin-top:0.5rem;">© 2024 FHU UCKA Grzegorz. Wszelkie prawa zastrzeżone.</p>
+</footer>
+
+<!-- FLOATING PHONE -->
+<a href="tel:787161614" class="floating-phone">
+  📞 787 16 16 14
+</a>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Form handler
+  function handleForm(btn) {
+    btn.textContent = '✅ Wysłano! Oddzwonimy wkrótce.';
+    btn.style.background = '#2a7a2a';
+    btn.style.color = '#fff';
+    btn.disabled = true;
+  }
+
+  // Animate stats counter
+  function animateCounter(el, target, suffix = '') {
+    let current = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.floor(current) + suffix;
+    }, 20);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.stat-number');
+        animateCounter(nums[0], 10, '+');
+        animateCounter(nums[1], 500, '+');
+        animateCounter(nums[2], 100, '%');
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsObserver.observe(statsBar);
+</script>
+</body>
+</html>
